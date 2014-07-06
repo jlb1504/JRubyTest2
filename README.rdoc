@@ -9,11 +9,11 @@ Things you may want to cover:
 
 * Rails version - 4.0.8
 
-* System dependencies
+* System dependencies - rvm?
 
 * Configuration
 
-* Database creation
+* Database creation - sqlite3
 
 * Database initialization
 
