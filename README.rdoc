@@ -5,7 +5,9 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version - jruby 1.7.13 (1.9.3p392) 2014-06-2
+
+* Rails version - 4.0.8
 
 * System dependencies
 
