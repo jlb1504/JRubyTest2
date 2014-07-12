@@ -36,9 +36,9 @@
     <orderEntry type="library" scope="PROVIDED" name="execjs (v2.2.1, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hike (v1.2.3, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v0.6.9, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="jbuilder (v1.5.3, jruby-1.7.13-p392) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="jbuilder (v1.0.2, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jdbc-sqlite3 (v3.7.2.1, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v3.1.1, jruby-1.7.13-p392) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v3.0.4, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json (v1.8.1, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.5.4, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mime-types (v1.25.1, jruby-1.7.13-p392) [gem]" level="application" />
@@ -50,21 +50,19 @@
     <orderEntry type="library" scope="PROVIDED" name="rails (v4.0.8, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="railties (v4.0.8, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v10.3.2, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rdoc (v4.1.1, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sass (v3.2.19, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sass-rails (v4.0.3, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sdoc (v0.4.0, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sprockets (v2.11.0, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v2.1.3, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="therubyrhino (v2.0.3, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="therubyrhino_jar (v1.7.4, jruby-1.7.13-p392) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rdoc (v3.12.2, jruby-1.7.13-p392) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sass (v3.3.9, jruby-1.7.13-p392) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sass-rails (v4.0.1, jruby-1.7.13-p392) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sdoc (v0.3.20, jruby-1.7.13-p392) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sprockets (v2.12.1, jruby-1.7.13-p392) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v2.0.1, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v0.19.1, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thread_safe (v0.3.4, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tilt (v1.4.1, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="treetop (v1.4.15, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="turbolinks (v2.2.2, jruby-1.7.13-p392) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="turbolinks (v1.1.1, jruby-1.7.13-p392) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v0.3.39, jruby-1.7.13-p392) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="uglifier (v2.5.1, jruby-1.7.13-p392) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="uglifier (v2.1.1, jruby-1.7.13-p392) [gem]" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />
