@@ -1,6 +1,6 @@
 require "java"
 
-#java_import com.sun.tools.javac.Main
+#java_import com.sun.tools.javac.Main old way
 
 java_import javax.tools.JavaCompiler
 java_import javax.tools.ToolProvider
@@ -16,24 +16,61 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    #respond_to do |format|
+    #            format.html
+    #            format.xml  { render :xml => @users } #status?
+    #            format.json { render :json => @users, :callback => params[:callback]  } #status?
+    #            format.js   { render :json => @users, :callback => params[:callback] } #status?
+    #end
 
     javac = ToolProvider.getSystemJavaCompiler()
 
-    @test = "test string"
-    args = "test string"
-    inp = ByteArrayInputStream.new(@test.to_java_bytes)
+    @testsource = "public class Practice { public static void main( String args[] ) { System.out.println( \"Hello Web\" ); } }"
+    @args = "-g"
+    source = ByteArrayInputStream.new(@testsource.to_java_bytes)
     out = ByteArrayOutputStream.new()
     err = ByteArrayOutputStream.new()
 
-    @rc = javac.run(inp,out,err,args)
+    @rc = javac.run(source,out,err,@args)
 
     @outs = out.to_s
     @errs = err.to_s
+    @testssource2 = @testsource.to_java_bytes.to_s
+
+    #sm = java.lang.System.getSecurityManager()
+    #context = sm.getSecurityContext()
+
+    sm = java.lang.SecurityManager.new()
+    ###java.lang.System.setSecurityManager( sm )
+
+    #o =  java.lang.Object.new()
+    #urls = ["file:/home/testomat/resin/testomat/doc/temp/s766478786/"]
+    #urls = { java.net.URL.new( "file:/home/testomat/resin/testomat/doc/temp/s766478786/" ) }
+    ###cl = new ExerciseClassLoader( urls, o.getClass().getClassLoader() );
+    ###cl = java.net.URLClassLoader( urls.to_java, o.getClass().getClassLoader() )
+    ###cl = JRuby.runtime.JRubyClassLoader.new( urls.to_java, o.getClass().getClassLoader() )
+    cl = JRuby.runtime.jruby_class_loader
+    #cl.add_url(F.new('hello_world_directory').to_url)
+    ###cl.add_url("file:/home/testomat/resin/testomat/doc/temp/s766478786/")
+    #exercise = cl.loadClass("Exercise021")
+
+    installed = java.nio.file.spi.FileSystemProvider.installedProviders()
+    plist = installed.listIterator()
+    @count = installed.size()
+    @plist1 = plist.next().getScheme()
+    @plist2 = plist.next().getScheme()
+
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+   #   respond_to do |format|
+   #               format.html
+   #               format.xml { render :xml => @user } #status?
+   #               format.json { render :json => @user, :callback => params[:callback]  } #status?
+   #               format.js   { render :json => @user, :callback => params[:callback] } #status?
+   #               end
   end
 
   # GET /users/new
