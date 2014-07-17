@@ -1,5 +1,7 @@
 require "java"
 
+require "tmpdir"
+
 #java_import com.sun.tools.javac.Main old way
 
 java_import javax.tools.JavaCompiler
@@ -23,18 +25,35 @@ class UsersController < ApplicationController
     #            format.js   { render :json => @users, :callback => params[:callback] } #status?
     #end
 
+    @tmp = Dir.tmpdir
+    @tmp2 = Dir.mktmpdir
+
     javac = ToolProvider.getSystemJavaCompiler()
 
     @testsource = "public class Practice { public static void main( String args[] ) { System.out.println( \"Hello Web\" ); } }"
-    @args = "-g"
-    source = ByteArrayInputStream.new(@testsource.to_java_bytes)
-    out = ByteArrayOutputStream.new()
-    err = ByteArrayOutputStream.new()
+    #@args = "-g"
+    #source = ByteArrayInputStream.new(@testsource.to_java_bytes)
+    #out = ByteArrayOutputStream.new()
+    #err = ByteArrayOutputStream.new()
 
-    @rc = javac.run(source,out,err,@args)
+    #@rc = javac.run(@args,out,err,source) #source is last - filename/path as String
 
-    @outs = out.to_s
-    @errs = err.to_s
+    #sjfoc = Class.new(javax.tools.SimpleJavaFileObject) {
+    #  c = ""
+    #  def initialize(a, b)
+    #    #super(java.net.URI.new("TestClass"), javax.tools.JavaFileObject.Kind.SOURCE)
+    #    super(java.net.URI.new(a), "SOURCE")
+    #    c = b
+    #  end
+    #  def getCharContent(x)
+    #    return c
+    #  end
+    #}
+
+    #sjfo = sjfoc.new("TestClass", @testsource)
+
+    #@outs = out.to_s
+    #@errs = err.to_s
     @testssource2 = @testsource.to_java_bytes.to_s
 
     #sm = java.lang.System.getSecurityManager()
