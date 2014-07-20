@@ -2,6 +2,8 @@ require "java"
 
 require "tmpdir"
 
+require "jruby"
+
 #java_import com.sun.tools.javac.Main old way
 
 java_import javax.tools.JavaCompiler
@@ -25,42 +27,43 @@ class UsersController < ApplicationController
     #            format.js   { render :json => @users, :callback => params[:callback] } #status?
     #end
 
+    sm = java.lang.SecurityManager.new()
+    ###java.lang.System.setSecurityManager( sm )
+
     @tmp = Dir.tmpdir
     @tmp2 = Dir.mktmpdir
 
+    $CLASSPATH << @tmp2.to_s  # do need?
+
     javac = ToolProvider.getSystemJavaCompiler()
 
-    @testsource = "public class Practice { public static void main( String args[] ) { System.out.println( \"Hello Web\" ); } }"
-    #@args = "-g"
-    #source = ByteArrayInputStream.new(@testsource.to_java_bytes)
-    #out = ByteArrayOutputStream.new()
-    #err = ByteArrayOutputStream.new()
+    #@testsource = "public class Practice { public static void main( String args[] ) { System.out.println( \"Hello Web\" ); } }"
+    #testsource2 = "-help"
 
-    #@rc = javac.run(@args,out,err,source) #source is last - filename/path as String
+    @testsource = "public class Practice { public String hello() { System.out.println( \"Hello Web\" ); return \"hello\"; } }"
 
-    #sjfoc = Class.new(javax.tools.SimpleJavaFileObject) {
-    #  c = ""
-    #  def initialize(a, b)
-    #    #super(java.net.URI.new("TestClass"), javax.tools.JavaFileObject.Kind.SOURCE)
-    #    super(java.net.URI.new(a), "SOURCE")
-    #    c = b
-    #  end
-    #  def getCharContent(x)
-    #    return c
-    #  end
-    #}
+    Dir.chdir(@tmp2)
 
-    #sjfo = sjfoc.new("TestClass", @testsource)
+    @tmpfilename = File.join(@tmp2,"Practice.java")
+    tmpfile = File.new(@tmpfilename, "w")
+    tmpfile.puts(@testsource)
+    tmpfile.close
 
-    #@outs = out.to_s
-    #@errs = err.to_s
+    @args = "-g"
+    source = ByteArrayInputStream.new("".to_java_bytes)
+    out = ByteArrayOutputStream.new()
+    err = ByteArrayOutputStream.new()
+
+    @rc = javac.run(source,out,err,@tmpfilename)
+
+    @outs = out.to_s
+    @errs = err.to_s
     @testssource2 = @testsource.to_java_bytes.to_s
+
+    classfilename = File.join(@tmp2,"Practice")
 
     #sm = java.lang.System.getSecurityManager()
     #context = sm.getSecurityContext()
-
-    sm = java.lang.SecurityManager.new()
-    ###java.lang.System.setSecurityManager( sm )
 
     #o =  java.lang.Object.new()
     #urls = ["file:/home/testomat/resin/testomat/doc/temp/s766478786/"]
@@ -68,16 +71,44 @@ class UsersController < ApplicationController
     ###cl = new ExerciseClassLoader( urls, o.getClass().getClassLoader() );
     ###cl = java.net.URLClassLoader( urls.to_java, o.getClass().getClassLoader() )
     ###cl = JRuby.runtime.JRubyClassLoader.new( urls.to_java, o.getClass().getClassLoader() )
-    cl = JRuby.runtime.jruby_class_loader
+    #cl = JRuby.runtime.jruby_class_loader
     #cl.add_url(F.new('hello_world_directory').to_url)
-    ###cl.add_url("file:/home/testomat/resin/testomat/doc/temp/s766478786/")
-    #exercise = cl.loadClass("Exercise021")
+    #cl.add_url(java.net.URL.new("file:/"+@tmp2))
+    ###cl.add_url("file:"+@tmp2)
+
+#    cl = JRuby.runtime.jruby_class_loader
+#    @cpURL = "file:/"+@tmp2.to_s
+#    cl.add_url(java.net.URL.new(@cpURL))
+#    exercise = cl.loadClass("Practice")
+
+    @cpURL = "file:/"+@tmp2.to_s
+    urls = [java.net.URL.new(@cpURL)]
+    cl = java.net.URLClassLoader.new( (urls.to_java Java::java::net::URL), JRuby.runtime.jruby_class_loader )
+    exerciseClass = cl.loadClass("Practice")
+
+    constr = exerciseClass.getConstructor()
+    #???
+    @retVal = exerciseClass.getCanonicalName()
+
+#    method = exerciseClass.declared_method(:hello)
+#    @retVal = method.invoke exercise.java_object
+
+#    hello = exerciseClass.java_method :hello, []
+#    @retVal = hello.call()
 
     installed = java.nio.file.spi.FileSystemProvider.installedProviders()
     plist = installed.listIterator()
     @count = installed.size()
     @plist1 = plist.next().getScheme()
     @plist2 = plist.next().getScheme()
+
+    #clean up
+
+    cl = NIL
+    File.delete(tmpfile)
+    File.delete("Practice.class")
+
+    Dir.rmdir(@tmp2)
 
   end
 
