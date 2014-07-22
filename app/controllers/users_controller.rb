@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     @tmp = Dir.tmpdir
     @tmp2 = Dir.mktmpdir
 
-    #### $CLASSPATH << @tmp2.to_s # don't need?
+    $CLASSPATH << @tmp2.to_s # don't need?
 
     javac = ToolProvider.getSystemJavaCompiler()
 
