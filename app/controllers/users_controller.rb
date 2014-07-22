@@ -33,14 +33,14 @@ class UsersController < ApplicationController
     @tmp = Dir.tmpdir
     @tmp2 = Dir.mktmpdir
 
-    $CLASSPATH << @tmp2.to_s # don't need?
+    #### $CLASSPATH << @tmp2.to_s # don't need?
 
     javac = ToolProvider.getSystemJavaCompiler()
 
     #@testsource = "public class Practice { public static void main( String args[] ) { System.out.println( \"Hello Web\" ); } }"
     #testsource2 = "-help"
 
-    @testsource = "package test; public class Practice { public String hello() { System.out.println( \"Hello Web\" ); return \"helloo!\"; } }"
+    @testsource = "package test; public class Practice { public String hello() { System.out.println( \"Hello Web\" ); return \"hell!\"; } }"
 
     Dir.chdir(@tmp2)
     @testdir = Dir.mkdir("test")
