@@ -33,18 +33,19 @@ class UsersController < ApplicationController
     @tmp = Dir.tmpdir
     @tmp2 = Dir.mktmpdir
 
-    $CLASSPATH << @tmp2.to_s  # do need?
+    $CLASSPATH << @tmp2.to_s # don't need?
 
     javac = ToolProvider.getSystemJavaCompiler()
 
     #@testsource = "public class Practice { public static void main( String args[] ) { System.out.println( \"Hello Web\" ); } }"
     #testsource2 = "-help"
 
-    @testsource = "public class Practice { public String hello() { System.out.println( \"Hello Web\" ); return \"hello\"; } }"
+    @testsource = "package test; public class Practice { public String hello() { System.out.println( \"Hello Web\" ); return \"helloo!\"; } }"
 
     Dir.chdir(@tmp2)
+    @testdir = Dir.mkdir("test")
 
-    @tmpfilename = File.join(@tmp2,"Practice.java")
+    @tmpfilename = File.join(@tmp2.to_s+"/test/","Practice.java")
     tmpfile = File.new(@tmpfilename, "w")
     tmpfile.puts(@testsource)
     tmpfile.close
@@ -60,7 +61,7 @@ class UsersController < ApplicationController
     @errs = err.to_s
     @testssource2 = @testsource.to_java_bytes.to_s
 
-    classfilename = File.join(@tmp2,"Practice")
+    classfilename = File.join(@tmp2.to_s+"/test/","Practice")
 
     #sm = java.lang.System.getSecurityManager()
     #context = sm.getSecurityContext()
@@ -84,17 +85,14 @@ class UsersController < ApplicationController
     @cpURL = "file:/"+@tmp2.to_s
     urls = [java.net.URL.new(@cpURL)]
     cl = java.net.URLClassLoader.new( (urls.to_java Java::java::net::URL), JRuby.runtime.jruby_class_loader )
-    exerciseClass = cl.loadClass("Practice")
+    @cp = cl.getURLs()
+    exerciseClass = cl.loadClass("test.Practice")
 
     constr = exerciseClass.getConstructor()
-    #???
-    @retVal = exerciseClass.getCanonicalName()
-
-#    method = exerciseClass.declared_method(:hello)
-#    @retVal = method.invoke exercise.java_object
-
-#    hello = exerciseClass.java_method :hello, []
-#    @retVal = hello.call()
+#    @retVal = exerciseClass.getCanonicalName()
+    instnc = exerciseClass.getConstructor().newInstance()
+    methd = instnc.java_method :hello, []
+    @retVal = methd.call()
 
     installed = java.nio.file.spi.FileSystemProvider.installedProviders()
     plist = installed.listIterator()
@@ -106,8 +104,9 @@ class UsersController < ApplicationController
 
     cl = NIL
     File.delete(tmpfile)
-    File.delete("Practice.class")
+    File.delete("test/Practice.class")
 
+    Dir.rmdir(@tmp2.to_s+"/test")
     Dir.rmdir(@tmp2)
 
   end
